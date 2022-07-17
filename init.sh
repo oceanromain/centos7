@@ -139,7 +139,7 @@ yumset()
 		\cp CentOS-Base.repo CentOS-Base.repo.$(date +%F)
 		ping -c 1 mirrors.aliyun.com &> /dev/null
 		if [ $? -eq 0 ];then
-			wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo &> /dev/null
+			curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &> /dev/null
 			yum clean all &> /dev/null
 			yum makecache &> /dev/null
 		else
@@ -150,7 +150,7 @@ yumset()
 		echo "wget安装失败"
 		exit $?
 	fi
-	yum -y install ntpdate lsof net-tools telnet vim lrzsz tree nmap nc sysstat &> /dev/null
+	yum -y install chrony wget lsof net-tools telnet vim lrzsz tree sysstat &> /dev/null
 	action "完成安装常用工具及修改yum源" /bin/true
 	echo "==========================================================="
 	sleep 2
