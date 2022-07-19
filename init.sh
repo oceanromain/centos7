@@ -67,7 +67,7 @@ selinuxset()
 	selinux_status=`grep "SELINUX=disabled" /etc/sysconfig/selinux | wc -l`
 	echo "========================禁用SELINUX========================"
 	if [ $selinux_status -eq 0 ];then
-		sed  -i "s#SELINUX=enforcing#SELINUX=disabled#g" /etc/sysconfig/selinux
+		sed  -i "s#SELINUX=enforcing#SELINUX=disabled#g" /etc/selinux/config
 		setenforce 0
 		echo '#grep SELINUX=disabled /etc/sysconfig/selinux'
 		grep SELINUX=disabled /etc/sysconfig/selinux
