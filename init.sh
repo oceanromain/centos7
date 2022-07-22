@@ -222,12 +222,12 @@ restartset()
 ntpdateset()
 {
 	echo "=======================设置时间同步========================"
-	yum -y install ntpdate &> /dev/null
+	yum -y install chrony &> /dev/null
+	systemctl enable chronyd --now
 	if [ $? -eq 0 ];then
-		/usr/sbin/ntpdate time.windows.com
-		echo "*/5 * * * * /usr/sbin/ntpdate ntp.aliyun.com &>/dev/null" >> /var/spool/cron/root
+		chronyc add server ntp.aliyun.com
 	else
-		echo "ntpdate安装失败"
+		echo "chrony安装失败"
 		exit $?
 	fi
 	action "完成设置时间同步" /bin/true
